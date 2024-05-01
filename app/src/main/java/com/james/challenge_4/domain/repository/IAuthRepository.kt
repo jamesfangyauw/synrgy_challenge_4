@@ -1,0 +1,10 @@
+package com.james.challenge_4.domain.repository
+
+interface IAuthRepository {
+    suspend fun register(email : String, password : String)
+    suspend fun login (email: String, password: String) : String
+    fun saveToken(token:String)
+    fun loadToken() : String?
+    fun clearToken()
+
+}
