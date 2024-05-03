@@ -44,7 +44,9 @@ class RegisterActivity : AppCompatActivity() {
 
         viewModel.isSuccess.observe(this){
             if(it) {
-                startActivity(Intent(this, LoginActivity::class.java))
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
             }
         }
 
