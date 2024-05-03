@@ -56,6 +56,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.room:room-runtime:2.5.2")
     ksp("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")//using coroutine in room
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0") //convert flow to livedata
 }

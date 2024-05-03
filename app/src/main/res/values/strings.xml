@@ -4,4 +4,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">HOME</string>
     <string name="no_data">No data</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="sure_delete">Anda yakin akan registrasi ?</string>
+    <string name="sure_delete_sub">Akun yang telah terbuat sebelumnya akan terhapus</string>
+    <string name="sure_delete_note">Apakah yakin akan menghapus catatan ini?</string>
+    <string name="sure_delete_note_sub">Catatan yang telah dihapus tidak dapat dikembalikan</string>
+    <string name="title">Judul</string>
+    <string name="description">isi catatan</string>
+    <string name="submit">tambahkan</string>
 </resources>

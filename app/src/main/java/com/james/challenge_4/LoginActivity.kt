@@ -40,10 +40,14 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.success.observe(this) { isSuccess ->
             if (isSuccess) {
+                val email = binding.tieEmail.text.toString()
                 Toast.makeText(this, "Login Berhasil!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra(HomeFragment.EXTRA_DATA ,email )
+                startActivity(intent)
+                finish()
             } else{
-                Toast.makeText(this, "Login Gagal!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Akun tidak ditemukan!", Toast.LENGTH_SHORT).show()
             }
         }
     }

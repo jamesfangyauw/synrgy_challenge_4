@@ -8,27 +8,28 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="12dp">
 
         <TextView
             android:id="@+id/tv_title_note"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:fontFamily="@font/poppins_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_delete"/>
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Loren adfjafkjaslfjalusd sdhfsd"
+            android:text=""
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/btn_delete"
+            app:layout_constraintEnd_toEndOf="@id/tv_title_note"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_title_note"
             app:layout_constraintTop_toBottomOf="@id/tv_title_note" />
