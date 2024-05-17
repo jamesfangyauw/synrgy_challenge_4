@@ -31,4 +31,12 @@ class AuthRepository @Inject constructor(
     override fun clearToken() {
         localDataSourceAuth.clearToken()
     }
+
+    override suspend fun saveName(name: String) {
+        localDataSourceAuth.saveName(name)
+    }
+
+    override suspend fun loadName(): String? {
+        return localDataSourceAuth.loadName()
+    }
 }

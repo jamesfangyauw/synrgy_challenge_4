@@ -17,8 +17,10 @@ class RegisterViewModel @Inject constructor (private val authUseCase: AuthUseCas
     var isSuccess : LiveData <Boolean> = _isSuccess
 
     fun register(email : String, password : String){
-        viewModelScope.launch { authUseCase.register(email,password) }
+        viewModelScope.launch { authUseCase.register(email,password)
+            _isSuccess.value = true
+        }
         Log.d("test321", "testing testing")
-        _isSuccess.value = true
+
     }
 }

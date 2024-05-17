@@ -1,13 +1,17 @@
 package com.james.challenge_4
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.datastore.core.DataStore
 import com.james.challenge_4.databinding.ActivityLoginBinding
 import com.james.challenge_4.databinding.ActivityRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.prefs.Preferences
+
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {

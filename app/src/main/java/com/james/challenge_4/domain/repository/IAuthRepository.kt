@@ -6,5 +6,6 @@ interface IAuthRepository {
     fun saveToken(token:String)
     fun loadToken() : String?
     fun clearToken()
-
+    suspend fun saveName(name:String)
+    suspend fun loadName() : String?
 }

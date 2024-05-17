@@ -20,6 +20,8 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) :
             try {
                 val token = authUseCase.login(email,password)
                 authUseCase.saveToken(token)
+                val username = email.substringBefore("@")
+                authUseCase.saveName(username)
                 _success.value = true
             } catch (throwable:Throwable){
                 _success.value = false

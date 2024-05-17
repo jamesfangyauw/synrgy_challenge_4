@@ -9,6 +9,12 @@ import com.james.challenge_4.core.data.source.AuthRepository
 import com.james.challenge_4.core.data.source.NoteRepository
 import com.james.challenge_4.domain.model.Note
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,5 +43,18 @@ class HomeViewModel @Inject constructor(private val noteRepository: NoteReposito
 
     fun logOut(){
         authRepository.clearToken()
+    }
+
+//    fun getName() : Deferred<String?> {
+//        return viewModelScope.async {
+//            return@async authRepository.loadName()
+//        }
+//    }
+
+    suspend fun getName(): Flow<String?> {
+        return flow {
+            val data = authRepository.loadName()
+            emit(data)
+        }
     }
 }

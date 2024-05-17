@@ -1,5 +1,6 @@
 package com.james.challenge_4
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuAdapter
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.SharedPreferencesMigration
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.james.challenge_4.databinding.FragmentHomeBinding
 import com.james.challenge_4.domain.model.Note
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -46,7 +55,10 @@ class HomeFragment : Fragment() {
         }
 
         val email = requireActivity().intent.getStringExtra(EXTRA_DATA)
-        binding?.name?.text = "Hai nice person!" //not yet save name in shareprefrence
+        lifecycleScope.launch {
+            binding?.name?.text = "Hello, " + viewModel.getName().first()
+        }
+
 
         binding?.btwExit?.setOnClickListener{
             viewModel.logOut()

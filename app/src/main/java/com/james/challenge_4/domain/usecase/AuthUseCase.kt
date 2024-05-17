@@ -6,5 +6,7 @@ interface AuthUseCase {
     fun loadToken() : String?
     fun clearToken()
     fun saveToken(token: String)
+    suspend fun saveName(name:String)
+    suspend fun loadName() : String?
 
 }

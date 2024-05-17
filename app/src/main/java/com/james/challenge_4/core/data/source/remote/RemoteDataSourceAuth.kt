@@ -12,7 +12,7 @@ class RemoteDataSourceAuth (private val sharedPreferences: SharedPreferences) {
         const val KEY_PASSWORD = "rahasia"
     }
     suspend fun register(email : String, password : String) {
-//        delay(1000)
+        delay(1000)
         sharedPreferences.edit().putString(KEY_EMAIL, email).apply()
         sharedPreferences.edit().putString(KEY_PASSWORD, password).apply()
     }

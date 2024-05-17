@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.james.challenge_4.core.SharedPreferencesFactory
 import com.james.challenge_4.core.data.source.local.auth.LocalDataSourceAuth
+import com.james.challenge_4.core.dataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,6 @@ class LocalDataSourceAuthModul {
 
     @Provides
     fun provideLocalDataSourceAuth (@ApplicationContext context: Context) : LocalDataSourceAuth {
-        return LocalDataSourceAuth(sharedPreferences = SharedPreferencesFactory().createSharedPreferences(context))
+        return LocalDataSourceAuth(sharedPreferences = SharedPreferencesFactory().createSharedPreferences(context), context.dataStore)
     }
 }

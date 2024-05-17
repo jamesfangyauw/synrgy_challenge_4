@@ -25,4 +25,14 @@ class AuthInteractor @Inject constructor(private val authRepository: IAuthReposi
     override fun saveToken(token: String) {
         authRepository.saveToken(token)
     }
+
+    override suspend fun saveName(name: String) {
+        authRepository.saveName(name)
+    }
+
+    override suspend fun loadName(): String? {
+        return authRepository.loadName()
+    }
+
+
 }
