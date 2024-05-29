@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.james.challenge4.R
 import com.james.challenge4.databinding.ItemMovieBinding
-import com.james.challenge4.core.domain.model.Movie
+import com.james.challenge4.domain.model.Movie
 import java.util.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ListViewHolder>() {

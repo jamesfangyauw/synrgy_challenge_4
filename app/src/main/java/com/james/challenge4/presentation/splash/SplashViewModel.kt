@@ -2,7 +2,7 @@ package com.james.challenge4.presentation.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.james.challenge4.core.domain.usecase.AuthUseCase
+import com.james.challenge4.domain.usecase.AuthUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.james.challenge4.databinding.ItemNoteBinding
-import com.james.challenge4.core.domain.model.Note
+import com.james.challenge4.presentation.NoteParcelize
 
-class HomeAdapter(private val context: Context) : ListAdapter<Note, HomeAdapter.ViewHolder>(
+class HomeAdapter(private val context: Context) : ListAdapter<NoteParcelize, HomeAdapter.ViewHolder>(
     differCallback
 ) {
 
 
     companion object {
-        val differCallback = object : DiffUtil.ItemCallback<Note>(){
-            override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean =
+        val differCallback = object : DiffUtil.ItemCallback<NoteParcelize>(){
+            override fun areItemsTheSame(oldItem: NoteParcelize, newItem: NoteParcelize): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean =
+            override fun areContentsTheSame(oldItem: NoteParcelize, newItem: NoteParcelize): Boolean =
                 oldItem == newItem
 
         }
@@ -35,7 +35,7 @@ class HomeAdapter(private val context: Context) : ListAdapter<Note, HomeAdapter.
         return ViewHolder(binding)
     }
     inner class ViewHolder(private val binding: ItemNoteBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Note, listenerEdit: ((Note) -> Unit)?, listenerDel: ((Note) -> Unit)?){
+        fun bind(data: NoteParcelize, listenerEdit: ((NoteParcelize) -> Unit)?, listenerDel: ((NoteParcelize) -> Unit)?){
             with(binding){
                 tvTitleNote.text = data.title.toString()
                 tvContent.text = data.content.toString()
@@ -53,12 +53,12 @@ class HomeAdapter(private val context: Context) : ListAdapter<Note, HomeAdapter.
         }
     }
 
-    private var listenerEdit : ((Note) -> Unit)? = null
-    fun setOnItemClick(listener: (Note) -> Unit){
+    private var listenerEdit : ((NoteParcelize) -> Unit)? = null
+    fun setOnItemClick(listener: (NoteParcelize) -> Unit){
         this.listenerEdit = listener
     }
-    private var listenerDel : ((Note) -> Unit)? = null
-    fun setOnDelClick(listener: (Note) -> Unit){
+    private var listenerDel : ((NoteParcelize) -> Unit)? = null
+    fun setOnDelClick(listener: (NoteParcelize) -> Unit){
         this.listenerDel = listener
     }
 }

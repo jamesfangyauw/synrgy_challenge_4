@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.james.challenge4.core.domain.model.Note
-import com.james.challenge4.core.domain.usecase.NoteUseCase
+import com.james.challenge4.domain.model.Note
+import com.james.challenge4.domain.usecase.NoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

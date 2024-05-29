@@ -14,7 +14,8 @@ import com.james.challenge4.presentation.login.LoginActivity
 import com.james.challenge4.presentation.dialog.PopDialog
 import com.james.challenge4.R
 import com.james.challenge4.databinding.FragmentHomeBinding
-import com.james.challenge4.core.domain.model.Note
+import com.james.challenge4.domain.model.Note
+import com.james.challenge4.presentation.NoteParcelize
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -78,7 +79,7 @@ class HomeFragment : Fragment() {
             val pop = PopDialog()
             pop.showDialog(requireContext(),
                 positive = {_,_ ->
-                    viewModel.deleteNote(it)
+                    viewModel.deleteNote(Note(it.id, it.title, it.content))
                 }, negative = {_,_->
 
                 },
@@ -98,7 +99,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun moveToAdd(note: Note?){
+    private fun moveToAdd(note: NoteParcelize?){
         val move = HomeFragmentDirections.actionHomeFragmentToAddEditNote(note)
         findNavController().navigate(move)
     }

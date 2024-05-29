@@ -27,7 +27,7 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="note"
-            app:argType="com.james.challenge4.core.domain.model.Note"
+            app:argType="com.james.challenge4.presentation.NoteParcelize"
             app:nullable="true" />
     </fragment>
 

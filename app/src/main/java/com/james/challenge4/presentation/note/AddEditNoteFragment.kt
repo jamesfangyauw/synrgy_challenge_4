@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.james.challenge4.core.domain.model.Note
+import com.james.challenge4.domain.model.Note
 import com.james.challenge4.databinding.FragmentAddEditNoteBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,21 +37,21 @@ class AddEditNoteFragment : Fragment() {
         if(note != null){
             binding?.edtTitle?.setText(note.title.toString())
             binding?.edtDescription?.setText(note.content.toString())
-            binding?.btnSubmit?.setText("Edit")
+            binding?.btnSubmit?.text = "Edit"
         }
 
         binding?.btnSubmit?.setOnClickListener {
             if (note!=null){
                 viewModel.updateNote(
-                        Note(
-                            title = binding?.edtTitle?.text.toString(),
-                            content = binding?.edtDescription?.text.toString(),
-                            id =note.id
-                        )
+                    Note(
+                        title = binding?.edtTitle?.text.toString(),
+                        content = binding?.edtDescription?.text.toString(),
+                        id = note.id
+                    )
                 )
             } else {
                 if(binding?.edtTitle?.text.isNullOrEmpty()){
-                    binding?.edtTitle?.setError("Judul tidak boleh kosoong")
+                    binding?.edtTitle?.error = "Judul tidak boleh kosoong"
                 }else{
                     viewModel.addNote(
                         Note(
