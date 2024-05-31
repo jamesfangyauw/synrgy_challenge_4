@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.james.challenge4.R
 import com.james.challenge4.presentation.login.LoginActivity
 import com.james.challenge4.presentation.dialog.PopDialog
-import com.james.challenge4.R
 import com.james.challenge4.databinding.FragmentHomeBinding
 import com.james.challenge4.domain.model.Note
 import com.james.challenge4.presentation.NoteParcelize

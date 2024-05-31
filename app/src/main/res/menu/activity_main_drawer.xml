@@ -12,6 +12,12 @@
             android:icon="@drawable/baseline_movie_24"
             android:title="Movie" />
 
+        <item
+            android:id="@+id/photo"
+            android:icon="@drawable/baseline_insert_photo_24"
+            android:title="Photo" />
+
+
     </group>
 
 

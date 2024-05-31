@@ -1,4 +1,4 @@
-package com.james.challenge4
+package com.james.challenge4.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.james.challenge4.R
 import com.james.challenge4.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

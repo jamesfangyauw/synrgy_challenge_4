@@ -8,7 +8,7 @@ import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
-import com.james.challenge4.MainActivity
+import com.james.challenge4.presentation.MainActivity
 import com.james.challenge4.databinding.ActivitySplashBinding
 import com.james.challenge4.presentation.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint

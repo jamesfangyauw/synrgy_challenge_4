@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.james.challenge4.MainActivity
+import com.james.challenge4.presentation.MainActivity
 import com.james.challenge4.presentation.register.RegisterActivity
 import com.james.challenge4.databinding.ActivityLoginBinding
 import com.james.challenge4.presentation.home.HomeFragment

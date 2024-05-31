@@ -36,4 +36,10 @@
         android:name="com.james.challenge4.presentation.movie.MovieFragment"
         android:label="fragment_movie"
         tools:layout="@layout/fragment_movie" />
+
+    <fragment
+        android:id="@+id/photo"
+        android:name="com.james.challenge4.presentation.photo.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" />
 </navigation>
