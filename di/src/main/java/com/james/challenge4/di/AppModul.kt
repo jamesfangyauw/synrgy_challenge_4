@@ -6,6 +6,8 @@ import com.james.challenge4.domain.usecase.MovieInteractor
 import com.james.challenge4.domain.usecase.MovieUseCase
 import com.james.challenge4.domain.usecase.NoteInteractor
 import com.james.challenge4.domain.usecase.NoteUseCase
+import com.james.challenge4.domain.usecase.PhotoInteractor
+import com.james.challenge4.domain.usecase.PhotoUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,4 +28,9 @@ abstract class AppModul {
     @Binds
     @ViewModelScoped
     abstract fun provideMovieUseCase(movieInteractor: MovieInteractor) : MovieUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun providePhotoUseCase(photoInteractor: PhotoInteractor) : PhotoUseCase
+
 }

@@ -5,8 +5,10 @@ import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
@@ -15,6 +17,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.james.challenge4.R
+import com.james.challenge4.domain.usecase.PhotoUseCase
 import com.james.challenge4.presentation.photo.PhotoFragment.Companion.KEY_IMAGE_URI
 import com.james.challenge4.worker.BlurWorker
 import com.james.challenge4.worker.CleanupWorker
@@ -22,10 +25,18 @@ import com.james.challenge4.worker.SaveImageToFileWorker
 import com.james.challenge4.worker.TAG_OUTPUT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PhotoViewModel @Inject constructor( @ApplicationContext application: Context) : ViewModel() {
+class PhotoViewModel @Inject constructor(
+    @ApplicationContext application: Context,
+    private val photoUseCase: PhotoUseCase
+) : ViewModel() {
 
     companion object {
         private const val IMAGE_MANIPULATION_WORK_NAME = "image_manipulation_work"
@@ -34,12 +45,19 @@ class PhotoViewModel @Inject constructor( @ApplicationContext application: Conte
     private var imageUri: Uri? = null
     internal var outputUri: Uri? = null
     private val workManager = WorkManager.getInstance(application)
-    internal val outputWorkInfos: LiveData<List<WorkInfo>> = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+    internal val outputWorkInfos: LiveData<List<WorkInfo>> =
+        workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+
+    private var _status = MutableLiveData<Boolean>()
+    val status: LiveData<Boolean> = _status
+
+
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
         // the UI is listening to changes
         imageUri = getImageUri(application.applicationContext)
+
     }
 
     internal fun cancelWork() {
@@ -126,5 +144,26 @@ class PhotoViewModel @Inject constructor( @ApplicationContext application: Conte
 
     fun setImageUri(imageUri: Uri) {
         this.imageUri = imageUri
+    }
+
+    fun savePhoto(photo: String) {
+        viewModelScope.launch {
+            photoUseCase.savePhoto(photo)
+        }
+    }
+
+    suspend fun loadPhoto(): Flow<String?> {
+        return flow {
+            val photo = photoUseCase.loadPhoto()
+            emit(photo)
+        }
+    }
+
+    fun setStatusTrue() {
+        _status.value = true
+    }
+
+    fun setStatusFalse() {
+        _status.value = false
     }
 }

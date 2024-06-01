@@ -1,38 +1,63 @@
 package com.james.challenge4.presentation.photo
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.work.WorkInfo
 import coil.load
+import com.bumptech.glide.Glide
+
 import com.james.challenge4.R
 import com.james.challenge4.databinding.FragmentPhotoBinding
 import com.nareshchocha.filepickerlibrary.models.PickMediaConfig
 import com.nareshchocha.filepickerlibrary.models.PickMediaType
 import com.nareshchocha.filepickerlibrary.ui.FilePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class PhotoFragment : Fragment() {
 
-    private var _binding: FragmentPhotoBinding ? = null
-    private val binding get() =  _binding
+    private var _binding: FragmentPhotoBinding? = null
+    private val binding get() = _binding
 
     private val viewModel: PhotoViewModel by viewModels()
+
+    private lateinit var photo: String
+
+    private val status get() = viewModel.status
+
 
     private val filePickerResult =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
             ::handleFilePickerResult,
         )
+
+    private val requestNotificationPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+            ::handleRequestNotificationPermissionLauncher
+        )
+
 
     companion object {
         const val KEY_IMAGE_URI = "KEY_IMAGE_URI"
@@ -52,17 +77,37 @@ class PhotoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.goButton?.setOnClickListener { viewModel.applyBlur(blurLevel) }
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                //Continue flow of app
+            }
 
-        // Setup view output image file button
-        binding?.seeFileButton?.setOnClickListener {
-            viewModel.outputUri?.let { currentUri ->
-                val actionView = Intent(Intent.ACTION_VIEW, currentUri)
-                actionView.resolveActivity(requireActivity().packageManager)?.run {
-                    startActivity(actionView)
-                }
+            else -> {
+                requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.loadPhoto().first()?.let {
+                photo = it
+                Glide.with(requireContext())
+                    .load(it)
+                    .into(binding!!.imageView)
+//                binding?.imageView?.load(it)
+//                viewModel.setImageUri(it.toUri())
+            }
+
+        }
+
+
+        binding?.goButton?.setOnClickListener {
+            viewModel.applyBlur(blurLevel)
+            viewModel.setStatusTrue()
+        }
+
 
         // Hookup the Cancel button
         binding?.cancelButton?.setOnClickListener { viewModel.cancelWork() }
@@ -84,6 +129,7 @@ class PhotoFragment : Fragment() {
                 return@Observer
             }
 
+
             // We only care about the one output status.
             // Every continuation has only one worker tagged TAG_OUTPUT
             val workInfo = listOfWorkInfo[0]
@@ -97,9 +143,12 @@ class PhotoFragment : Fragment() {
 
                 // If there is an output file show "See File" button
                 if (!outputImageUri.isNullOrEmpty()) {
-                    viewModel.setOutputUri(outputImageUri)
-                    binding?.seeFileButton?.visibility = View.VISIBLE
-                    binding?.imageView?.load(outputImageUri)
+                    if (status.value ?: false) {
+                        viewModel.savePhoto(outputImageUri)
+                        viewModel.setOutputUri(outputImageUri)
+                        binding?.imageView?.load(outputImageUri)
+                        viewModel.setImageUri(outputImageUri.toUri())
+                    }
                 }
             } else {
                 showWorkInProgress()
@@ -116,7 +165,6 @@ class PhotoFragment : Fragment() {
                 progressBar.visibility = View.VISIBLE
                 cancelButton.visibility = View.VISIBLE
                 goButton.visibility = View.GONE
-                seeFileButton.visibility = View.GONE
             }
         }
     }
@@ -134,7 +182,8 @@ class PhotoFragment : Fragment() {
         }
     }
 
-    private val blurLevel: Int
+    private
+    val blurLevel: Int
         get() =
             when (binding?.radioBlurGroup?.checkedRadioButtonId) {
                 R.id.radio_blur_lv_1 -> 1
@@ -157,10 +206,27 @@ class PhotoFragment : Fragment() {
 
     private fun handleFilePickerResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
+            viewModel.setStatusFalse()
             result.data?.data?.let {
-                binding?.imageView?.load(it)
+                viewModel.savePhoto(it.toString())
+//                binding?.imageView?.load(it)
+                Glide.with(requireContext())
+                    .load(it)
+                    .into(binding!!.imageView)
                 viewModel.setImageUri(it)
             }
         }
     }
+
+    fun handleRequestNotificationPermissionLauncher(isGranted: Boolean) {
+        if (isGranted) {
+            Toast.makeText(requireContext(), "permission diterima", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "permission ditolak", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        }
+
+    }
+
 }
+
