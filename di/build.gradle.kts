@@ -18,13 +18,21 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "TMDB_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTljMzljNTIxMTcwZTVlNWZjODExOWQ2YTA5MWMyNSIsInN1YiI6IjY1YWZiYjM4ZjhhZWU4MDBjYmIxMjI0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T3SgL6QLpS9GXPjrNvaawQLNZhszIv7OHXj0QPkIr5M\"")
         }
+        create("staging") {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "TMDB_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTljMzljNTIxMTcwZTVlNWZjODExOWQ2YTA5MWMyNSIsInN1YiI6IjY1YWZiYjM4ZjhhZWU4MDBjYmIxMjI0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T3SgL6QLpS9GXPjrNvaawQLNZhszIv7OHXj0QPkIr5M\"")     }
+        release {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "TMDB_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTljMzljNTIxMTcwZTVlNWZjODExOWQ2YTA5MWMyNSIsInN1YiI6IjY1YWZiYjM4ZjhhZWU4MDBjYmIxMjI0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T3SgL6QLpS9GXPjrNvaawQLNZhszIv7OHXj0QPkIr5M\"")      }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -32,6 +40,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -62,6 +74,7 @@ dependencies {
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC")
     testImplementation("org.mockito:mockito-inline:5.2.0")
     testImplementation("androidx.test:core:1.5.0")
-
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
 }

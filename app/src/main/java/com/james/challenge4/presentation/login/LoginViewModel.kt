@@ -26,9 +26,6 @@ class LoginViewModel @Inject constructor(private val authUseCase: AuthUseCase) :
             } catch (throwable:Throwable){
                 _success.value = false
             }
-
-
         }
-        Log.d("test321", "testing testing")
     }
 }

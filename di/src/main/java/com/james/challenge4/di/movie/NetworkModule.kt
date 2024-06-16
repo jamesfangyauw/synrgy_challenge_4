@@ -1,10 +1,14 @@
 package com.james.challenge4.di.movie
 
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.james.challenge4.data.source.remote.movie.network.ApiService
+import com.james.challenge4.di.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
@@ -22,7 +27,7 @@ class NetworkModule {
         return Interceptor { chain ->
             var request = chain.request().newBuilder()
                 .header("accept", "application/json")
-                .header("Authorization", "Bearer "+ "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYTljMzljNTIxMTcwZTVlNWZjODExOWQ2YTA5MWMyNSIsInN1YiI6IjY1YWZiYjM4ZjhhZWU4MDBjYmIxMjI0MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.T3SgL6QLpS9GXPjrNvaawQLNZhszIv7OHXj0QPkIr5M")
+                .header("Authorization", "Bearer "+ BuildConfig.TMDB_TOKEN )
                 .build()
              chain.proceed(request)
         }
@@ -31,9 +36,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(serviceInterceptor())
+            .addInterceptor(provideChuckerInterceptor(context))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
@@ -43,12 +49,16 @@ class NetworkModule {
     @Singleton
     fun provideApiService(client: OkHttpClient) : ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.BASE_URL_TMDB)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
         return retrofit.create(ApiService::class.java)
 
+    }
+
+    private fun provideChuckerInterceptor(context: Context): Interceptor {
+        return ChuckerInterceptor.Builder(context).build()
     }
 }
 
