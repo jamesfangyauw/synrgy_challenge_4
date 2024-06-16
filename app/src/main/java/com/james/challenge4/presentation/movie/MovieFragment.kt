@@ -1,6 +1,7 @@
 package com.james.challenge4.presentation.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,10 @@ class MovieFragment : Fragment() {
     private val viewModel: MovieViewModel by viewModels()
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("MovieFragment", "onCreate" )
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,12 +32,13 @@ class MovieFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
         val view = binding?.root
+        Log.d("MovieFragment", "onCreateView" )
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("MovieFragment", "onViewCreated1" )
         viewModel.movie.observe(viewLifecycleOwner){apiResponse ->
             if (apiResponse!= null){
                 when(apiResponse){
@@ -43,7 +49,7 @@ class MovieFragment : Fragment() {
                                 layoutManager = LinearLayoutManager(context)
                                 setHasFixedSize(true)
                                 adapter = movieAdapter
-
+                                Log.d("MovieFragment", "observe" )
                             }
                         }
                     }
@@ -54,5 +60,44 @@ class MovieFragment : Fragment() {
             }
         }
 
+        Log.d("MovieFragment", "onViewCreated2" )
+
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Log.d("MovieFragment", "onViewStateRestored" )
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MovieFragment", "onStart" )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MovieFragment", "onResume" )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MovieFragment", "onPause" )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MovieFragment", "onStop" )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("MovieFragment", "onSaveInstanceState" )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("MovieFragment", "onDestoryView" )
+    }
+
+
 }
