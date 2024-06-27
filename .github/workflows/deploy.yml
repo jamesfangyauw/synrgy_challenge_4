@@ -20,6 +20,7 @@ jobs:
       - name: run unit test
         run: ./gradlew testDemoDebugUnitTest
 
+
   upload_to_firebase:
     needs: run_unit_test
     runs-on: ubuntu-latest
