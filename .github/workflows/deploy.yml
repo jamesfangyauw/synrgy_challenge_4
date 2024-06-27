@@ -45,4 +45,5 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           groups: tester
           file: app/build/outputs/apk/demo/debug/app-demo-debug.apk
+          debug: true
 
