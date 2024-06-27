@@ -7,9 +7,104 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:219824556917:android:d52cfcffac92771167613c",
+        "android_client_info": {
+          "package_name": "com.james.challenge4.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B6dd3oJdvQHyePGHv6Q7oSo_zZmoPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:219824556917:android:d95593438a588c5067613c",
         "android_client_info": {
           "package_name": "com.james.challenge4.demo.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B6dd3oJdvQHyePGHv6Q7oSo_zZmoPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219824556917:android:3c505914b4578c2967613c",
+        "android_client_info": {
+          "package_name": "com.james.challenge4.demo.debugStaging"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B6dd3oJdvQHyePGHv6Q7oSo_zZmoPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219824556917:android:9b394ed90910d6e867613c",
+        "android_client_info": {
+          "package_name": "com.james.challenge4.full"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B6dd3oJdvQHyePGHv6Q7oSo_zZmoPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219824556917:android:1b7760a83456a58b67613c",
+        "android_client_info": {
+          "package_name": "com.james.challenge4.full.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-B6dd3oJdvQHyePGHv6Q7oSo_zZmoPms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219824556917:android:6aa0b2a2ebbae91b67613c",
+        "android_client_info": {
+          "package_name": "com.james.challenge4.full.debugStaging"
         }
       },
       "oauth_client": [],
