@@ -5,25 +5,25 @@ on:
     types: [opened, synchronize]
 
 jobs:
-#  run_unit_test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#
-#      - name: setup java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'zulu'
-#          java-version: '17'
-#
-#      - name: run unit test
-#        run: ./gradlew testDemoDebugUnitTest
+  run_unit_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: run unit test
+        run: ./gradlew testDemoDebugUnitTest
 
 
 
   upload_to_firebase:
-#    needs: run_unit_test
+    needs: run_unit_test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
