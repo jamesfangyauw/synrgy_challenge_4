@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -47,10 +48,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.fab?.setOnClickListener{
-            moveToAdd(null)
-        }
-
         val email = requireActivity().intent.getStringExtra(EXTRA_DATA)
         lifecycleScope.launch {
             binding?.name?.text = "Hello, " + viewModel.getName().first()
@@ -58,6 +55,7 @@ class HomeFragment : Fragment() {
 
 
         binding?.btwExit?.setOnClickListener{
+//            throw RuntimeException("Test Crash") // Force a crash
             viewModel.logOut()
             startActivity(Intent(requireActivity(), LoginActivity::class.java))
             requireActivity().finish()
