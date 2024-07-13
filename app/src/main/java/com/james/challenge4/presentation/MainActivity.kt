@@ -9,9 +9,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.james.challenge4.R
 import com.james.challenge4.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -19,10 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setupBottomNavMenu(findNavController(R.id.container))
-
-
 
     }
 
